@@ -60,3 +60,11 @@ For renaming the columns to one, two, and three:
 ```{R}
 colnames(annoying) <- c("one","two","three")
 ```
+
+### 5. What does tibble::enframe() do? When might you use it?
+
+enframe() converts vectors or lists to a dataframe. The opposite to this is deframe(). I would use enframe() when I am given a vector or list to analyze.
+
+### What option controls how many additional column names are printed at the footer of a tibble?
+
+tibble.width controls how many additional column names are printed.
