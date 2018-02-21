@@ -68,3 +68,36 @@ enframe() converts vectors or lists to a dataframe. The opposite to this is defr
 ### What option controls how many additional column names are printed at the footer of a tibble?
 
 tibble.width controls how many additional column names are printed.
+
+
+## 12.6 Exercises
+### 1. In this case study I set na.rm = TRUE just to make it easier to check that we had the correct values. Is this reasonable? Think about how missing values are represented in this dataset. Are there implicit missing values? What’s the difference between an NA and zero?
+
+Looking back at the original data, I noticed that any row with NA in any of its columns had an NA for every other column. This probably meant that there was no information about that specific country in that time period. Also, one can see that they are usually blocks of missing information, not randomly distributed throughout the data.  I think it is reasonable to just remove all the rows with NA for this dataset. The difference between NA and zero is that NA implies that this data is missing whereas a zero indicates that the observations were made and that zero was the value for that cell.
+
+### 2. What happens if you neglect the mutate() step? (mutate(key = stringr::str_replace(key, "newrel", "new_rel")))
+
+If we negelected that step, then any rows with a key that started with newrel wouldve not been separated later on. It would have made the data messy since NA cells would pop up again. 
+
+### 3. I claimed that iso2 and iso3 were redundant with country. Confirm this claim.
+
+```{R}
+head(who)
+tail(who)
+```
+
+No matter which observation one picks, iso2 and iso3 changes accordingly with country and is redundant.
+
+### 4. For each country, year, and sex compute the total number of cases of TB. Make an informative visualisation of the data.
+
+```{R}
+whoTidy <- who %>%
+  gather(code, value, new_sp_m014:newrel_f65, na.rm = TRUE) %>% 
+  mutate(code = stringr::str_replace(code, "newrel", "new_rel")) %>%
+  separate(code, c("new", "var", "sexage")) %>% 
+  select(-new, -iso2, -iso3) %>% 
+  separate(sexage, c("sex", "age"), sep = 1) %>% 
+  group_by(country, year, sex) %>% 
+  summarize(Number =n())
+whoTidy
+```
