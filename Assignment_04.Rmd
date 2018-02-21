@@ -14,6 +14,7 @@ library(dplyr)
 ### 1. How can you tell if an object is a tibble?
 
 A tibble is a special type of data frame. It will print the first ten rows when it's called and each of its columns will specify their datatype below the column names. In addition to that, it will require the $ or [[]] operators in order to extract data from a tibble.
+
 ### 2. Compare and contrast the following operations on a data.frame and equivalent tibble. What is different? Why might the default data frame behaviours cause you frustration?
 
 df <- data.frame(abc = 1, xyz = "a")
