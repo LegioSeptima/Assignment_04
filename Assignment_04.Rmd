@@ -102,3 +102,10 @@ whoTidy <- who %>%
   summarize(Number =n())
 whoTidy
 ```
+
+
+```{R}
+table4a
+table4b
+table6
+```
